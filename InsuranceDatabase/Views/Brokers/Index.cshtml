@@ -1,0 +1,115 @@
+﻿@model IEnumerable<InsuranceDatabase.Brokers>
+
+@{
+    ViewData["Title"] = "Брокери";
+}
+
+<h1>Брокери</h1>
+<link rel="stylesheet" type="text/css" href="~/css/style3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/js/script3.js"></script>
+<meta charset="utf-8"></meta>
+<p>
+    <a asp-action="Create">Додати брокера</a>
+</p>
+<form asp-controller="Brokers" asp-action="Index">
+    <section id="search">
+        <div id="center">
+            <div id="menu">
+                <div id="button1">
+                    <span>Пошук по імені</span>
+                </div>
+                
+                <div id="button4" >
+                    <span>Пошук по категорії</span>
+                </div>
+            </div>
+
+            <div id="line"></div>
+            <div id="number" type="submit">
+                <input id="num" name="searchString" placeholder="Ім'я брокера">
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+            
+            <div id="category">
+                <select id="categories" name="categoryId">
+                    <option value="">Брокери в категорії : </option>
+                    @foreach (Categories c in ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Category</option>
+                    }
+                </select>
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+        </div>
+    </section>
+</form>
+<table class="table">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+
+
+
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+@section scripts{
+
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+
+    <script>
+        google.charts.load('current', { 'packages': ['corechart'] });
+        google.charts.setOnLoadCallback(drawChart);
+
+        function drawChart() {
+
+            $.get('/api/Charts/JsonData2', function (jsonData) {
+                //var data = new google.visualization.DataTable();
+                data = google.visualization.arrayToDataTable(jsonData, false);
+                var option = {
+                    title: "Кількість підписаних докуметів брокером",
+                    width: 700,
+                    height: 550
+
+                };
+                chart = new google.visualization.BarChart(document.getElementById('chart2'));
+                chart.draw(data, option);
+            })
+
+        }
+    </script>
+}

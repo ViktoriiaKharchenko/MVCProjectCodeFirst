@@ -1,0 +1,101 @@
+﻿@model IEnumerable<InsuranceDatabase.Documents>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Договори</h1>
+<link rel="stylesheet" type="text/css" href="~/css/style3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/js/script3.js"></script>
+<meta charset="utf-8"></meta>
+<p>
+    <a asp-action="Create" asp-route-bbrokerId="@ViewBag.BrokerDocId" asp-route-cclientId="@ViewBag.ClientDocId" asp-route-ttypeId="@ViewBag.TypeDocId">Додати договір</a>
+</p>
+<form asp-controller="Documents" asp-action="Index">
+    <section id="search">
+        <div id="center">
+            <div id="menu">
+                <div id="button1">
+                    <span>Пошук по номеру</span>
+                </div>
+                <div id="button2">
+                    <span>Пошук по імені</span>
+                </div>
+                <div id="button3">
+                    <span>Пошук по категорії</span>
+                </div>
+            </div>
+
+            <div id="line"></div>
+            <div id="number" type="submit">
+                <input id="num"  name="searchString" placeholder="Номер документа">
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+            <div id="name" type="submit">
+                <div style="float: left;">
+                    <input id="name-broker" name="brokerName" placeholder="Ім'я брокера">
+                    <input id="name-client" name="clientName" placeholder="Ім'я клієнта">
+                </div>
+                <button id="button" type="submit" style="margin-top: 75px;" >
+                    <span>Пошук</span>
+                </button>
+            </div>
+            <div id="category">
+                <select id="categories" name="categoryId">
+                    <option value="">Документи в категорії : </option>
+                    @foreach (Categories c in ViewBag.Categories)
+                    {
+                        <option value="@c.Id">@c.Category</option>
+                    }
+                </select>
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+        </div>
+    </section>
+    </form>
+    <table class="table">
+        <thead>
+            <tr class="table-primary">
+                <th>
+                    @Html.DisplayNameFor(model => model.Broker)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Client)
+                </th>
+                <th>
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr class="table-light">
+
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Broker.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Client.FullName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type.Type)
+                    </td>
+                    <td>
+                        <a asp-action="Edit" asp-route-id="@item.Id" asp-route-bDocId="@ViewBag.BrokerDocId" asp-route-clDocId="@ViewBag.ClientDocId" asp-route-tDocId="@ViewBag.TypeDocId">Редагувати</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id" asp-route-brokerId="@ViewBag.BrokerDocId" asp-route-clientId="@ViewBag.ClientDocId" asp-route-typeId="@ViewBag.TypeDocId">Деталі</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id" asp-route-brokerId="@ViewBag.BrokerDocId" asp-route-clientId="@ViewBag.ClientDocId" asp-route-typeId="@ViewBag.TypeDocId">Видалити</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+

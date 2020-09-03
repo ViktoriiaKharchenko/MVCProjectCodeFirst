@@ -1,0 +1,87 @@
+﻿@model IEnumerable<InsuranceDatabase.Clients>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Клієнти</h1>
+<link rel="stylesheet" type="text/css" href="~/css/style3.css">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+<script src="~/js/script3.js"></script>
+<meta charset="utf-8"></meta>
+<p>
+    <a asp-action="Create">Додати клієнта</a>
+</p>
+
+<form asp-controller="Clients" asp-action="Index">
+    <section id="search">
+        <div id="center">
+            <div id="menu">
+                <div id="button1">
+                    <span>Пошук по імені</span>
+                </div>
+
+                <div id="button4">
+                    <span>Клієнти брокера</span>
+                </div>
+            </div>
+
+            <div id="line"></div>
+            <div id="number" type="submit">
+                <input id="num" name="searchString" placeholder="Ім'я клієнта">
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+
+            <div id="category">
+                <select id="categories" name="broker">
+                    <option value="">Клієнти брокера : </option>
+                    @foreach (Brokers b in ViewBag.Brokers)
+                    {
+                        <option value="@b.Id">@b.FullName</option>
+                    }
+                </select>
+                <button id="button" type="submit">
+                    <span>Пошук</span>
+                </button>
+            </div>
+        </div>
+    </section>
+</form>
+<p>
+    <a asp-action="Index" asp-route-categories="@ViewBag.Categories">Переглянути клієнтів, що підписали договори в усіх категоріях</a>
+</p>
+<table class="table">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Surname)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr class="table-light">
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+                <td>
+                    <a asp-action="Edit" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

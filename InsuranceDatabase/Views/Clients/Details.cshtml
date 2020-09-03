@@ -1,0 +1,70 @@
+﻿@model InsuranceDatabase.Clients
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+
+
+    <div>
+        <hr />
+        <h4>@ViewBag.ClientName</h4>
+        <hr />
+        <dl class="row">
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Name)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Name)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Surname)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Surname)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.BirthDate)
+            </dt>
+            <dd class="col-sm-10">
+                <text>@ViewBag.Day.@ViewBag.Month.@ViewBag.Year</text>
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Passport)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Passport)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.PhoneNum)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.PhoneNum)
+            </dd>
+            <dt class="col-sm-2">
+                @Html.DisplayNameFor(model => model.Email)
+            </dt>
+            <dd class="col-sm-10">
+                @Html.DisplayFor(model => model.Email)
+            </dd>
+            <dt class="col-sm-2">
+                Договори
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-action="ClientsDocuments" asp-route-id="@ViewBag.ClientId" asp-route-client="@ViewBag.ClientName">Переглянути документи клієнта</a>
+            </dd>
+            <dt class="col-sm-2">
+                Категорії 
+            </dt>
+            <dd class="col-sm-10">
+                <a asp-action="ClientsDocuments" asp-route-id="@ViewBag.ClientId">Переглянути категорії, в яких клієнт підписував договори</a>
+            </dd>
+        </dl>
+    </div>
+
+<p><a asp-action="Index" asp-route-clientId="@Model.Id">Переглянути інших клієнтів в цих категоріях,</a></p>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model.Id">Редагувати</a> |
+    <a asp-action="Index">Повернутись</a>
+</div>

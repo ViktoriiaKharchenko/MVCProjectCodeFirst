@@ -1,0 +1,155 @@
+*{
+	padding: 0;
+	margin: 0;
+	box-sizing: border-box;
+	border: 0px;
+	font-family: Tahoma;
+}
+#center{
+	width: 800px;
+	height: 250px;
+	margin: 0 auto;
+}
+#menu{
+	margin: 0 auto;
+	width: 470px;
+	height: 50px;
+	font-size: 14px;
+	display: inherit;
+}
+#button1{
+	text-align: center;
+	line-height: 50px;
+	width:150px;
+	height: 50px;
+	display: inline-block;
+	cursor: pointer;
+
+}
+#button2{
+	text-align: center;
+	line-height: 50px;
+	width:150px;
+	height: 50px;
+	display: inline-block;
+	cursor: pointer;
+
+}
+#button3{
+	line-height: 50px;
+	width:150px;
+	height: 50px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+}
+#button4 {
+	line-height: 50px;
+	width: 150px;
+	height: 50px;
+	text-align: center;
+	display: inline-block;
+	cursor: pointer;
+}
+#line{
+	text-align: center;
+	margin-left: 168px;
+	width: 140px;
+	height: 3px;
+	background-color: #2C3E50;
+	-webkit-transition: 0.2s;
+    -o-transition: 0.2s;
+    transition: 0.2s;
+    -webkit-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+    position: absolute;												
+}
+#number{
+	width: 450px;
+	height: 350px;
+	margin: 0 auto;
+}
+#name{
+	width: 450px;
+	height: 350px;
+	margin: 0 auto;
+	display: none;
+}
+#category{
+	width: 450px;
+	height: 300px;
+	display: none;
+	margin: 0 auto;
+	
+}
+#num{
+	border: 1px solid gray;
+	width: 300px;
+		
+	padding: 10px;
+	outline:none;
+	margin-top: 50px;
+	float: left;
+}
+#name-broker{
+	border: 1px solid gray;
+	width: 300px;
+	
+	display: block;
+	padding: 10px;
+	outline:none;
+	margin-top: 50px;
+}
+#name-client{
+	border: 1px solid gray;
+	width: 300px;
+	
+	display: block;
+	padding: 10px;
+	outline:none;
+	margin-top: 20px;
+}
+#button{
+	float:right;
+	width: 120px;
+	height: 40px;
+	background-color:  #2C3E50;
+	border-radius: 5px;
+	margin-top: 48px;
+	color: white;
+	line-height: 40px;
+	cursor: pointer;
+	text-align: center;
+	-webkit-transition: 0.1s;
+    -o-transition: 0.1s;
+    transition: 0.1s;
+    -webkit-transition-timing-function: ease-in-out;
+    -o-transition-timing-function: ease-in-out;
+    transition-timing-function: ease-in-out;
+}
+#categories{
+	float:left;
+	cursor: pointer;
+	outline:none;
+	margin: 50px auto;
+	display: block;
+	color: gray;
+	width: 300px;
+	padding: 10px;
+	border: 1px solid gray;
+}
+/* Style the arrow inside the select element: */
+
+#categories > option{
+	padding: 10px;
+	text-align: center;
+}
+#button:hover{
+	transform: scale(1.05);
+	
+}
+#button:active{
+	transform: scale(1.1);
+	
+}
