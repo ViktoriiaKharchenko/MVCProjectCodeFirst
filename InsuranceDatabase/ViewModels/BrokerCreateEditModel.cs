@@ -10,6 +10,7 @@ namespace InsuranceDatabase.ViewModels
 {
     public class BrokerCreateEditModel
     {
+        public int Id { get; set; }
         [Remote(action: "NameValid", controller: "Brokers")]
         [Required(ErrorMessage = "Поле не повинно бути порожнім")]
         [Display(Name = "Ім'я")]

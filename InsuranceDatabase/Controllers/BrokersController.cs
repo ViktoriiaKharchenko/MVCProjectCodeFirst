@@ -130,7 +130,7 @@ namespace InsuranceDatabase.Controllers
         // GET: Brokers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-
+          
             if (id == null)
             {
                 return NotFound();
@@ -141,7 +141,19 @@ namespace InsuranceDatabase.Controllers
             {
                 return NotFound();
             }
-            return View(brokers);
+
+            BrokerCreateEditModel newBroker = new BrokerCreateEditModel
+            {
+                Id= brokers.Id,
+                Name = brokers.Name,
+                Surname = brokers.Surname,
+                BirthDate = brokers.BirthDate,
+                PhoneNum = brokers.PhoneNum,
+                Passport = brokers.Passport,
+                Email = brokers.Email
+            };
+            ViewBag.Path = brokers.ImagePath;
+            return View(newBroker);
         }
 
         // POST: Brokers/Edit/5
@@ -149,24 +161,41 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,BirthDate,PhoneNum,Passport,Email,Password")] Brokers brokers)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,PhoneNum,Passport,Email,Password,Photo, ImagePath")] BrokerCreateEditModel brokerModel)
         {
-
-            if (id != brokers.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(brokers);
+                    var findbroker = await _context.Brokers.FindAsync(id);
+                    string uniqueFileName  = findbroker.ImagePath;
+                    if (brokerModel.Photo != null)
+                    {
+                        string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages");
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + brokerModel.Photo.FileName;
+                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                        brokerModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    }
+
+                    findbroker.Name = brokerModel.Name;
+                    findbroker.Surname = brokerModel.Surname;
+                    findbroker.BirthDate = brokerModel.BirthDate;
+                    findbroker.PhoneNum = brokerModel.PhoneNum;
+                    findbroker.Passport = brokerModel.Passport;
+                    findbroker.Email = brokerModel.Email;
+
+                    if (uniqueFileName != null)
+                    {
+                        findbroker.ImagePath = uniqueFileName;
+                    }
+
+                    _context.Update(findbroker);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BrokersExists(brokers.Id))
+                    if (!BrokersExists(id))
                     {
                         return NotFound();
                     }
@@ -177,7 +206,8 @@ namespace InsuranceDatabase.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(brokers);
+            var broker = _context.Brokers.Find(id);
+            return View(broker);
         }
 
         // GET: Brokers/Delete/5
