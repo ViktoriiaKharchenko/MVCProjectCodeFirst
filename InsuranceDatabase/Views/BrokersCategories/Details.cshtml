@@ -2,6 +2,7 @@
 
 @{
     ViewData["Title"] = "Details";
+    var PhotoPath = "~/brokerImages/" + (Model.Broker.ImagePath ?? "unnamed.png");
 }
 
 
@@ -10,7 +11,7 @@
 <hr />
 <div>
 
-    
+    <img id="brokerImage" class="card-img-top" src="@PhotoPath" asp-append-version="true" />
     <dl class="row">
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.Broker.Name)

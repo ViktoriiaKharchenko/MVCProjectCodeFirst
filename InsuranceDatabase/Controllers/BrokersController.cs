@@ -26,7 +26,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers
-        public async Task<IActionResult> Index(int? categoryId, string? SearchString, int? brokerId)
+        public async Task<IActionResult> Index(int? categoryId, string SearchString, int? brokerId)
         {
             ViewBag.Categories = _context.Categories.ToList();
             if (brokerId != null)
@@ -263,7 +263,7 @@ namespace InsuranceDatabase.Controllers
         }
 
 
-        public IActionResult PhoneValid(string? PhoneNum)
+        public IActionResult PhoneValid(string PhoneNum)
         {
             if (PhoneNum != null)
             {
@@ -278,7 +278,7 @@ namespace InsuranceDatabase.Controllers
             }
             return Json(data: true);
         }
-        public IActionResult PassportValid(string? Passport, int? Id)
+        public IActionResult PassportValid(string Passport, int? Id)
         {
             if (Passport != null)
             {
@@ -299,7 +299,7 @@ namespace InsuranceDatabase.Controllers
             return Json(data: true);
 
         }
-        public IActionResult NameValid(string? Name)
+        public IActionResult NameValid(string Name)
         {
             if (Name != null)
             {
@@ -311,7 +311,7 @@ namespace InsuranceDatabase.Controllers
             }
             return Json(data: true);
         }
-        public IActionResult SurnameValid(string? Surname)
+        public IActionResult SurnameValid(string Surname)
         {
             if (Surname != null)
             {
@@ -330,7 +330,7 @@ namespace InsuranceDatabase.Controllers
             string birthDate = BirthDate.ToString();
             int year;
             try { year = Convert.ToInt32(birthDate.Split(param)[2]); }
-            catch (Exception e) { return Json(data: "Невірний формат данних"); }
+            catch (Exception) { return Json(data: "Невірний формат данних"); }
             if (birthDate != null)
             {
                 if (year < DateTime.Today.Year - 65 || year > DateTime.Today.Year - 18)

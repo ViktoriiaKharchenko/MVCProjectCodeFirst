@@ -43,9 +43,12 @@
                 <span asp-validation-for="Email" class="text-danger"></span>
             </div>
 
-            <div class="form-group custom-file">
-                <label asp-for="Photo" class="custom-file-label">Choose file ...</label>
-                <input asp-for="Photo" class="form-control custom-file-input" />
+            <div class="form-group">
+                <label asp-for="Photo" class="control-label"></label>
+                <div class="custom-file">
+                    <input asp-for="Photo" class="form-control custom-file-input" />
+                    <label asp-for="Photo" class="custom-file-label">Choose file ...</label>
+                </div>
             </div>
 
             <div class="form-group">
@@ -62,12 +65,12 @@
 @section Scripts {
 
 <script>
-    //$(document).ready(function () {
-    //    $('.custom-file-input').on("change", function () {
-    //        var fileName = $(this).val().split("\\").pop();
-    //        $(this).next('.custom-file-label').html(fileName);
-    //    });
-    //});
+    $(document).ready(function () {
+        $('.custom-file-input').on("change", function () {
+            var fileName = $(this).val().split("\\").pop();
+            $(this).next('.custom-file-label').html(fileName);
+        });
+    });
 </script>
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }

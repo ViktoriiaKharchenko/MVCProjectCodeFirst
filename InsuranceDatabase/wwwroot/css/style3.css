@@ -153,3 +153,7 @@
 	transform: scale(1.1);
 	
 }
+#brokerImage {
+	width: 200px;
+	height:auto;
+}

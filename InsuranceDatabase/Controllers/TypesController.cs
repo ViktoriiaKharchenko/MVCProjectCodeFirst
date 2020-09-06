@@ -196,7 +196,7 @@ namespace InsuranceDatabase.Controllers
 
             return RedirectToAction("Index", "Documents", new { typeId = id, typeName = type });
         }
-        public IActionResult TypeValid(string? Type, int? Id)
+        public IActionResult TypeValid(string Type, int? Id)
         {
             if (Type.Length < 2) return Json(data: "Назва типу занадто коротка");
             var type = _context.Types.Where(b => b.Type == Type).Where(b => b.Id != Id);

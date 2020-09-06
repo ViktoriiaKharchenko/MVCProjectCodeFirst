@@ -21,7 +21,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Clients
-        public async Task<IActionResult> Index(string? searchString, int? broker, int? categories, int? clientId)
+        public async Task<IActionResult> Index(string searchString, int? broker, int? categories, int? clientId)
         {
             ViewBag.Categories = 1;
             ViewBag.Brokers = _context.Brokers.ToList();
@@ -193,7 +193,7 @@ namespace InsuranceDatabase.Controllers
             await _context.SaveChangesAsync();
             return RedirectToAction(nameof(Index));
         }
-        public IActionResult PhoneValid(string? PhoneNum)
+        public IActionResult PhoneValid(string PhoneNum)
         {
             if (PhoneNum != null)
             {
@@ -209,7 +209,7 @@ namespace InsuranceDatabase.Controllers
             return Json(data: true);
 
         }
-        public IActionResult PassportValid(string? Passport, int? Id)
+        public IActionResult PassportValid(string Passport, int? Id)
         {
             if (Passport != null)
             {
@@ -240,7 +240,7 @@ namespace InsuranceDatabase.Controllers
                 month = Convert.ToInt32(birthDate.Split(param)[1]);
                 day = Convert.ToInt32(birthDate.Split(param)[0]);
             }
-            catch (Exception e) { return Json(data: "Невірний формат данних"); }
+            catch (Exception) { return Json(data: "Невірний формат данних"); }
             if (birthDate != null)
             {
                 if (year < DateTime.Today.Year - 150 || year > DateTime.Today.Year - 18 || (year == DateTime.Today.Year
@@ -253,7 +253,7 @@ namespace InsuranceDatabase.Controllers
             return Json(data: true);
 
         }
-        public async Task<IActionResult> ClientsDocuments(int? id, string? client)
+        public async Task<IActionResult> ClientsDocuments(int? id, string client)
         {
             if (client == null)
             {

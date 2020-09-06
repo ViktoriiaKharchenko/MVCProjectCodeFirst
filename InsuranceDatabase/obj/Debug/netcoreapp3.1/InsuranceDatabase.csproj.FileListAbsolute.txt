@@ -413,3 +413,4 @@ D:\3 курс\Web-технології\Домашки\MVCProjectCodeFirst\Insura
 D:\3 курс\Web-технології\Домашки\MVCProjectCodeFirst\InsuranceDatabase\obj\Debug\netcoreapp3.1\InsuranceDatabase.dll
 D:\3 курс\Web-технології\Домашки\MVCProjectCodeFirst\InsuranceDatabase\obj\Debug\netcoreapp3.1\InsuranceDatabase.pdb
 D:\3 курс\Web-технології\Домашки\MVCProjectCodeFirst\InsuranceDatabase\obj\Debug\netcoreapp3.1\InsuranceDatabase.genruntimeconfig.cache
+D:\3 курс\Web-технології\Домашки\MVCProjectCodeFirst\InsuranceDatabase\obj\Debug\netcoreapp3.1\InsuranceDatabase.csprojAssemblyReference.cache

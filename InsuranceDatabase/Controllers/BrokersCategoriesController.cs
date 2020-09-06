@@ -148,7 +148,7 @@ namespace InsuranceDatabase.Controllers
             // return RedirectToAction(nameof(Index));
 
 
-            return RedirectToAction("Index", "BrokersCategories", new { id = categoryId });
+            //return RedirectToAction("Index", "BrokersCategories", new { id = categoryId });
         }
 
         // GET: BrokersCategories/Delete/5

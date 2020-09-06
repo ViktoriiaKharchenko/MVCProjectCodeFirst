@@ -37,12 +37,12 @@ html {
 }
 
 body {
-    background-color:lightcyan !impportant
+    background-color:lightcyan /*!important*/;
 }
 
 .makealink {
     background: transparent;
-    border: 0; !important
+    border: 0; /*!important*/
     text-decoration:underline;
     color: white;
     cursor: pointer;

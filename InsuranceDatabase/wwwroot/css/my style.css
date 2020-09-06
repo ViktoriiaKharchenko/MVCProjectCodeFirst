@@ -1,0 +1,13 @@
+﻿body {
+    background-color: white;
+}
+#brokerImage {
+    width: 200px;
+    height: auto;
+    margin-bottom: 10px;
+    margin-top: auto;
+}
+
+.form-group > a {
+    margin-left: 5px;
+}
