@@ -5,8 +5,11 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
-using InsuranceDatabase;
+using InsuranceDatabase.ViewModels;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.Extensions.Hosting;
+using Microsoft.AspNetCore.Hosting;
+using System.IO;
 
 namespace InsuranceDatabase.Controllers
 {
@@ -14,10 +17,12 @@ namespace InsuranceDatabase.Controllers
     public class BrokersController : Controller
     {
         private readonly InsuranceContext _context;
+        private readonly IWebHostEnvironment hostingEnvironment;
 
-        public BrokersController(InsuranceContext context)
+        public BrokersController(InsuranceContext context, IWebHostEnvironment hostingEnvironment)
         {
             _context = context;
+            this.hostingEnvironment = hostingEnvironment;
         }
 
         // GET: Brokers
@@ -92,22 +97,40 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,BirthDate,PhoneNum,Passport,Email,Password")] Brokers brokers)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,BirthDate,PhoneNum,Passport,Email,Photo")] BrokerCreateEditModel brokerModel)
         {
 
             if (ModelState.IsValid)
             {
-                _context.Add(brokers);
+                string uniqueFileName = null;
+                if (brokerModel.Photo != null)
+                {
+                    string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages");
+                    uniqueFileName = Guid.NewGuid().ToString() + "_" + brokerModel.Photo.FileName;
+                    string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                    brokerModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                }
+                Brokers newBroker = new Brokers
+                {
+                    Name = brokerModel.Name,
+                    Surname = brokerModel.Surname,
+                    BirthDate = brokerModel.BirthDate,
+                    PhoneNum = brokerModel.PhoneNum,
+                    Passport = brokerModel.Passport,
+                    Email = brokerModel.Email,
+                    ImagePath = uniqueFileName
+                };
+                _context.Add(newBroker);
                 await _context.SaveChangesAsync();
                 return RedirectToAction(nameof(Index));
             }
-            return View(brokers);
+            return View(brokerModel);
         }
 
         // GET: Brokers/Edit/5
         public async Task<IActionResult> Edit(int? id)
         {
-
+          
             if (id == null)
             {
                 return NotFound();
@@ -118,7 +141,19 @@ namespace InsuranceDatabase.Controllers
             {
                 return NotFound();
             }
-            return View(brokers);
+
+            BrokerCreateEditModel newBroker = new BrokerCreateEditModel
+            {
+                Id= brokers.Id,
+                Name = brokers.Name,
+                Surname = brokers.Surname,
+                BirthDate = brokers.BirthDate,
+                PhoneNum = brokers.PhoneNum,
+                Passport = brokers.Passport,
+                Email = brokers.Email
+            };
+            ViewBag.Path = brokers.ImagePath;
+            return View(newBroker);
         }
 
         // POST: Brokers/Edit/5
@@ -126,24 +161,41 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Surname,BirthDate,PhoneNum,Passport,Email,Password")] Brokers brokers)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,PhoneNum,Passport,Email,Password,Photo, ImagePath")] BrokerCreateEditModel brokerModel)
         {
-
-            if (id != brokers.Id)
-            {
-                return NotFound();
-            }
 
             if (ModelState.IsValid)
             {
                 try
                 {
-                    _context.Update(brokers);
+                    var findbroker = await _context.Brokers.FindAsync(id);
+                    string uniqueFileName  = findbroker.ImagePath;
+                    if (brokerModel.Photo != null)
+                    {
+                        string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages");
+                        uniqueFileName = Guid.NewGuid().ToString() + "_" + brokerModel.Photo.FileName;
+                        string filePath = Path.Combine(uploadFolder, uniqueFileName);
+                        brokerModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    }
+
+                    findbroker.Name = brokerModel.Name;
+                    findbroker.Surname = brokerModel.Surname;
+                    findbroker.BirthDate = brokerModel.BirthDate;
+                    findbroker.PhoneNum = brokerModel.PhoneNum;
+                    findbroker.Passport = brokerModel.Passport;
+                    findbroker.Email = brokerModel.Email;
+
+                    if (uniqueFileName != null)
+                    {
+                        findbroker.ImagePath = uniqueFileName;
+                    }
+
+                    _context.Update(findbroker);
                     await _context.SaveChangesAsync();
                 }
                 catch (DbUpdateConcurrencyException)
                 {
-                    if (!BrokersExists(brokers.Id))
+                    if (!BrokersExists(id))
                     {
                         return NotFound();
                     }
@@ -154,7 +206,8 @@ namespace InsuranceDatabase.Controllers
                 }
                 return RedirectToAction(nameof(Index));
             }
-            return View(brokers);
+            var broker = _context.Brokers.Find(id);
+            return View(broker);
         }
 
         // GET: Brokers/Delete/5
