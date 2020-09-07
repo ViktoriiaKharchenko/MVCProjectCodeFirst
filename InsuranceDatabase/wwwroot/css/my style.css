@@ -11,3 +11,12 @@
 .form-group > a {
     margin-left: 5px;
 }
+
+table.image-table tbody tr td{
+    vertical-align: middle;
+}
+
+table.image-table tbody tr td #brokerImage {
+    width: 100px;
+    margin: 0px;
+}

@@ -10,9 +10,10 @@
         <a asp-action="Create" asp-route-categoryId="@ViewBag.CategoryId">Додати брокера до категорії</a>
     </p>
 
-<table class="table">
+<table class="table image-table">
     <thead>
         <tr class="table-primary">
+            <th></th>
             <th>
                 @Html.DisplayNameFor(model => model.Broker.Name)
             </th>
@@ -26,6 +27,12 @@
         @foreach (var item in Model)
         {
         <tr class="table-light">
+            <td>
+                @{
+                    var PhotoPath = "~/brokerImages/" + (item.Broker.ImagePath ?? "unnamed.png");
+                }
+                <img id="brokerImage" class="card-img-top" src="@PhotoPath" asp-append-version="true" />
+            </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Broker.Name)
             </td>
