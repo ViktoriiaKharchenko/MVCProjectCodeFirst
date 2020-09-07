@@ -108,7 +108,10 @@ namespace InsuranceDatabase.Controllers
                     string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages");
                     uniqueFileName = Guid.NewGuid().ToString() + "_" + brokerModel.Photo.FileName;
                     string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                    brokerModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                    var fileStream = new FileStream(filePath, FileMode.Create);
+                    brokerModel.Photo.CopyTo(fileStream);
+                    fileStream.Close();
+                    
                 }
                 Brokers newBroker = new Brokers
                 {
@@ -175,7 +178,9 @@ namespace InsuranceDatabase.Controllers
                         string uploadFolder = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages");
                         uniqueFileName = Guid.NewGuid().ToString() + "_" + brokerModel.Photo.FileName;
                         string filePath = Path.Combine(uploadFolder, uniqueFileName);
-                        brokerModel.Photo.CopyTo(new FileStream(filePath, FileMode.Create));
+                        var fileStream = new FileStream(filePath, FileMode.Create);
+                        brokerModel.Photo.CopyTo(fileStream);
+                        fileStream.Close();
                     }
 
                     findbroker.Name = brokerModel.Name;
@@ -187,6 +192,14 @@ namespace InsuranceDatabase.Controllers
 
                     if (uniqueFileName != null)
                     {
+                       
+                        string FileName = findbroker.ImagePath;
+                        string ImPath = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages") +"\\" + FileName;
+                        FileInfo file = new FileInfo(ImPath);
+                        if (file.Exists)
+                        {
+                            file.Delete();
+                        }
                         findbroker.ImagePath = uniqueFileName;
                     }
 
@@ -236,6 +249,14 @@ namespace InsuranceDatabase.Controllers
             var brokers = await _context.Brokers.FindAsync(id);
             var docs = _context.Documents.Where(b => b.BrokerId == id).ToList();
             var brokersCategories = _context.BrokersCategories.Where(b => b.BrokerId == id).ToList();
+
+            string FileName = brokers.ImagePath;
+            string ImPath = Path.Combine(hostingEnvironment.WebRootPath, "brokerImages") + "\\" + FileName;
+            FileInfo file = new FileInfo(ImPath);
+            if (file.Exists)
+            {
+                file.Delete();
+            }
             foreach (var doc in docs)
             {
                 _context.Documents.Remove(doc);
