@@ -51,12 +51,36 @@
     </header>
 
     <div class="container">
-        <main role="main" class="pb-3">
+        <main role="main" class="pb-5">
             @RenderBody()
         </main>
     </div>
 
+    <footer id="footer" class="footer py-3 text-muted" style="bottom: -270px;">
+        <div class="container">
+            <!--<div class="row">-->
+            <div class="footer_content">
+                <div class="col-lg-12">
 
+                    <div class="contacts">
+                        <h3>Contacts</h3>
+                        <ul>
+                            <li class="d-flex flex-wrap">Адреса: <span>м.Київ, вул. Матеюка 20</span></li>
+                            <li class="d-flex flex-wrap">Телефон: <a href="tel:+38095-488-44-50">+38095-488-44-50</a></li>
+                            <li class="d-flex flex-wrap">Електронна адреса: <a href="mailto:insurance.database@gmail.com">insurance.database@gmail.com</a></li>
+                        </ul>
+                    </div>
+
+                </div>
+
+            </div>
+            <div class="copyright border-top d-flex justify-content-center">
+                &copy; 2020 - InsuranceDatabase - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
+            </div>
+            <!--</div>-->
+        </div>
+        
+    </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>

@@ -9,12 +9,67 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 <script src="~/js/script3.js"></script>
-<meta charset="utf-8"></meta>
+<meta charset="utf-8"/>
 <p>
     <a asp-action="Create" asp-route-bbrokerId="@ViewBag.BrokerDocId" asp-route-cclientId="@ViewBag.ClientDocId" asp-route-ttypeId="@ViewBag.TypeDocId">Додати договір</a>
 </p>
 <form asp-controller="Documents" asp-action="Index">
-    <section id="search">
+    <ul class="nav nav-tabs nav nav-tabs d-flex justify-content-center">
+        <li class="nav-item">
+            <a class="nav-link active" data-toggle="tab" href="#number_search">Пошук по номеру</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#name_search">Пошук по імені</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" data-toggle="tab" href="#category_search">Пошук по категорії</a>
+        </li>
+    </ul>
+
+    <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade active show" id="number_search">
+            <div class="d-flex p-2 bd-highlight">
+                <div id="number" class="d-flex align-content-center flex-wrap">
+                    <input id="num" name="searchString" class="form-control flex-fill" placeholder="Номер документа">
+                    <button id="button" class="flex-fill" type="submit">
+                        <span>Пошук</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="name_search">
+            <div class="d-flex p-2 bd-highlight">
+                <div id="number" type="submit" class="d-flex align-content-center flex-wrap">
+                    <div style="float: left;">
+                        <input id="name-broker" name="brokerName" class="form-control flex-fill" placeholder="Ім'я брокера">
+                        <input id="name-client" name="clientName" class="form-control flex-fill" placeholder="Ім'я клієнта">
+                    </div>
+                    <button id="button" type="submit" style="margin-top: 75px;">
+                        <span>Пошук</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="category_search">
+            <div class="d-flex p-2 bd-highlight">
+                <div id="number" class="d-flex align-content-center flex-wrap">
+                    <select id="categories" name="categoryId" class="flex-fill">
+                        <option value="">Документи в категорії : </option>
+                        @foreach (Categories c in ViewBag.Categories)
+                        {
+                            <option value="@c.Id">@c.Category</option>
+                        }
+                    </select>
+                    <button id="button" type="submit" class="flex-fill">
+                        <span>Пошук</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <!--<section id="search">
         <div id="center">
             <div id="menu">
                 <div id="button1">
@@ -30,7 +85,7 @@
 
             <div id="line"></div>
             <div id="number" type="submit">
-                <input id="num"  name="searchString" placeholder="Номер документа">
+                <input id="num" name="searchString" placeholder="Номер документа">
                 <button id="button" type="submit">
                     <span>Пошук</span>
                 </button>
@@ -40,7 +95,7 @@
                     <input id="name-broker" name="brokerName" placeholder="Ім'я брокера">
                     <input id="name-client" name="clientName" placeholder="Ім'я клієнта">
                 </div>
-                <button id="button" type="submit" style="margin-top: 75px;" >
+                <button id="button" type="submit" style="margin-top: 75px;">
                     <span>Пошук</span>
                 </button>
             </div>
@@ -57,9 +112,9 @@
                 </button>
             </div>
         </div>
-    </section>
-    </form>
-    <table class="table">
+    </section>-->
+</form>
+    <table class="table table-responsive-sm">
         <thead>
             <tr class="table-primary">
                 <th>

@@ -8,7 +8,7 @@
 #center{
 	width: 800px;
 	height: 250px;
-	margin: 0 auto;
+	margin: 0px auto;
 }
 #menu{
 	margin: 0 auto;
@@ -67,33 +67,32 @@
 }
 #number{
 	width: 450px;
-	height: 350px;
-	margin: 0 auto;
+	/*height: 350px;*/
+	margin: 40px auto;
 }
 #name{
 	width: 450px;
 	height: 350px;
 	margin: 0 auto;
-	display: none;
+	/*display: none;*/
 }
 #category{
 	width: 450px;
 	height: 300px;
-	display: none;
+	/*display: none;*/
 	margin: 0 auto;
 	
 }
-#num{
-	border: 1px solid gray;
+#num {
+	/*border: 1px solid gray;
 	width: 300px;
-		
 	padding: 10px;
 	outline:none;
-	margin-top: 50px;
 	float: left;
+	margin-top: 50px;*/
 }
 #name-broker{
-	border: 1px solid gray;
+	/*/border: 1px solid gray;*/
 	width: 300px;
 	
 	display: block;
@@ -102,7 +101,7 @@
 	margin-top: 50px;
 }
 #name-client{
-	border: 1px solid gray;
+	/*border: 1px solid gray;*/
 	width: 300px;
 	
 	display: block;
@@ -111,12 +110,12 @@
 	margin-top: 20px;
 }
 #button{
-	float:right;
+	/*float:right;*/
 	width: 120px;
 	height: 40px;
 	background-color:  #2C3E50;
 	border-radius: 5px;
-	margin-top: 48px;
+	/*margin-top: 48px;*/
 	color: white;
 	line-height: 40px;
 	cursor: pointer;
@@ -132,7 +131,7 @@
 	float:left;
 	cursor: pointer;
 	outline:none;
-	margin: 50px auto;
+	/*/margin: 50px auto;*/
 	display: block;
 	color: gray;
 	width: 300px;
@@ -152,8 +151,4 @@
 #button:active{
 	transform: scale(1.1);
 	
-}
-#brokerImage {
-	width: 200px;
-	height:auto;
 }

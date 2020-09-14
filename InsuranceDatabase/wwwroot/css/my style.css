@@ -20,3 +20,64 @@ table.image-table tbody tr td #brokerImage {
     width: 100px;
     margin: 0px;
 }
+/*---------------- Footer styles ---------------*/
+footer {
+    background-color: #ecf0f1;
+}
+footer .footer_content .contacts ul {
+    list-style:none;
+    padding-left: 0px;
+}
+footer .copyright {
+    text-align: center;
+    padding: 10px 0px;
+}
+footer .footer_content a{
+    text-decoration: none;
+    color: black;
+}
+footer .footer_content span{
+    color: black;
+}
+footer .footer_content a:hover {
+    text-decoration: none;
+}
+/*--------------- Searchs styles --------------*/
+@media(max-width: 480px){
+    #button {
+        margin-top: 20px;
+    }
+}
+@media(min-width: 480px){
+    #num{
+        width: 300px;
+    }
+    #button {
+        margin-left: 15px;
+    }
+}
+
+.nav-tabs{
+    border-bottom: none;
+}
+
+@media(max-width: 1100px){
+    /*#large_image{
+        display: none;
+    }*/
+    #sm_image{
+        display:block;
+    }
+    #box{
+        display: none;
+    }
+}
+@media(min-width: 1100px) {
+    /*#large_image {
+        display: block;
+    }*/
+
+    #sm_image {
+        display: none;
+    }
+}

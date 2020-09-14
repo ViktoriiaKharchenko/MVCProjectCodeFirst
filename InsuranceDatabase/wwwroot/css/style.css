@@ -106,7 +106,7 @@ input {
 	width: 1000px; /*менять тут */
 	height: 550px;
 	/*border: 2px solid white;*/
-	display: block; /*и до сюда*/
+	/*display: block; /*и до сюда*/
 	z-index: 1;
 	position: relative;
 	overflow: hidden;

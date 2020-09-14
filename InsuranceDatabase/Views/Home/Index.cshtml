@@ -4,8 +4,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <h1 align="center"> Cтрахові послуги онлайн</h1>
-    <hr />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" type="text/css" href="~/css/style.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
@@ -15,17 +13,24 @@
 
 </head>
 <body>
+    <h1 align="center"> Cтрахові послуги онлайн</h1>
+    <hr />
 
     <div id="box">
         <ul id="images">
             <li id="image1">
-                <img style="padding 0 0 0 8px;" src="~/image/what-is-a-life-insurance-agent-l.jpg">
+                <img id="large_image" style="padding: 0 0 0 8px;" src="~/image/what-is-a-life-insurance-agent-l.jpg">
+                <!--<img id="sm_image" style="padding: 0 0 0 8px;" src="~/image/Business-Banner-Resting.jpg">-->
             </li>
             <li id="image3">
-                <img style="padding 0 0 0 8px;" src="~/image/insurance-customer-experience.png">
+                <img id="large_image" style="padding: 0 0 0 8px;" src="~/image/insurance-customer-experience.png">
             </li>
         </ul>
     </div>
-
+    <div id="sm_image">
+        <div class="d-flex p-2 bd-highlight justify-content-center">
+            <img id="sm_image" style="padding: 0 0 0 8px;" src="~/image/arms.jpg">
+        </div>
+    </div>
 </body>
 </html>
