@@ -94,25 +94,25 @@
 }
 #name-broker{
 	/*/border: 1px solid gray;*/
-	width: 300px;
+	min-width: 300px;
 	
 	display: block;
-	padding: 10px;
+	/*padding: 10px;*/
 	outline:none;
 	/*margin-top: 50px;*/
 }
 #name-client{
 	/*border: 1px solid gray;*/
-	width: 300px;
+	min-width: 300px;
 	
 	display: block;
-	padding: 10px;
+	/*padding: 10px;*/
 	outline:none;
 	margin-top: 20px;
 }
 #button{
 	/*float:right;*/
-	width: 120px;
+	min-width: 120px;
 	height: 40px;
 	background-color:  #2C3E50;
 	border-radius: 5px;

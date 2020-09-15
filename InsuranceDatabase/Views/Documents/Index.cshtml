@@ -14,7 +14,7 @@
     <a asp-action="Create" asp-route-bbrokerId="@ViewBag.BrokerDocId" asp-route-cclientId="@ViewBag.ClientDocId" asp-route-ttypeId="@ViewBag.TypeDocId">Додати договір</a>
 </p>
 <form asp-controller="Documents" asp-action="Index">
-    <ul class="nav nav-tabs nav nav-tabs d-flex justify-content-center">
+    <ul class="nav nav-tabs nav nav-pills d-flex justify-content-center">
         <li class="nav-item">
             <a class="nav-link active" data-toggle="tab" href="#number_search">Пошук по номеру</a>
         </li>
@@ -40,7 +40,7 @@
         <div class="tab-pane fade" id="name_search">
             <div class="d-flex p-2 bd-highlight">
                 <div id="number" type="submit" class="d-flex align-content-center flex-wrap">
-                    <div style="float: left;">
+                    <div class="flex-fill">
                         <input id="name-broker" name="brokerName" class="form-control flex-fill" placeholder="Ім'я брокера">
                         <input id="name-client" name="clientName" class="form-control flex-fill" placeholder="Ім'я клієнта">
                     </div>
