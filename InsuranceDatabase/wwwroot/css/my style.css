@@ -47,10 +47,10 @@ footer .footer_content a:hover {
     #button {
         margin-top: 20px;
     }
-    h1 {
+    #title-main-page1 {
         display:none;
     }
-    h4 {
+    #title-main-page4 {
         margin-top: 15px;
     }
 }
@@ -84,7 +84,7 @@ footer .footer_content a:hover {
     /*#large_image {
         display: block;
     }*/
-    h4 {
+    #title-main-page4 {
         display: none;
     }
     #sm_image {

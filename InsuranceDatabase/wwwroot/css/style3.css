@@ -83,6 +83,7 @@
 	margin: 0 auto;
 	
 }
+
 #num {
 	/*border: 1px solid gray;
 	width: 300px;
@@ -126,6 +127,17 @@
     -webkit-transition-timing-function: ease-in-out;
     -o-transition-timing-function: ease-in-out;
     transition-timing-function: ease-in-out;
+}
+.nav-tabs .nav-link.active {
+	background: #2C3E50;
+	color: #ffff !important;
+	/*border: 3px;*/
+}
+.nav-tabs .nav-link {
+	border: 1px solid transparent;
+	border-top-left-radius: 0.25rem;
+	border-top-right-radius: 0.25rem;
+	
 }
 #categories{
 	float:left;
