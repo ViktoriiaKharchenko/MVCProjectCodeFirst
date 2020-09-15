@@ -416,8 +416,8 @@ namespace InsuranceDatabase.Controllers
             try
             {
                 year = Convert.ToInt32(birthDate.Split(param)[2]);
-                month = Convert.ToInt32(birthDate.Split(param)[1]);
-                day = Convert.ToInt32(birthDate.Split(param)[0]);
+                month = Convert.ToInt32(birthDate.Split(param)[0]);
+                day = Convert.ToInt32(birthDate.Split(param)[1]);
             }
             catch (Exception e) { return Json(data: "Невірний формат данних"); }
             if (birthDate != null)

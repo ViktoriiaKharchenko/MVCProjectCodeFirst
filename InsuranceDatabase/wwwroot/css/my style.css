@@ -22,7 +22,7 @@ table.image-table tbody tr td #brokerImage {
 }
 /*---------------- Footer styles ---------------*/
 footer {
-    background-color: #ecf0f1;
+    background-color: #2c3e50;
 }
 footer .footer_content .contacts ul {
     list-style:none;
@@ -34,10 +34,10 @@ footer .copyright {
 }
 footer .footer_content a{
     text-decoration: none;
-    color: black;
+    color: white;
 }
 footer .footer_content span{
-    color: black;
+    color: white;
 }
 footer .footer_content a:hover {
     text-decoration: none;
@@ -46,6 +46,12 @@ footer .footer_content a:hover {
 @media(max-width: 480px){
     #button {
         margin-top: 20px;
+    }
+    h1 {
+        display:none;
+    }
+    h4 {
+        margin-top: 15px;
     }
 }
 @media(min-width: 480px){
@@ -65,6 +71,8 @@ footer .footer_content a:hover {
     /*#large_image{
         display: none;
     }*/
+   
+
     #sm_image{
         display:block;
     }
@@ -76,7 +84,9 @@ footer .footer_content a:hover {
     /*#large_image {
         display: block;
     }*/
-
+    h4 {
+        display: none;
+    }
     #sm_image {
         display: none;
     }
