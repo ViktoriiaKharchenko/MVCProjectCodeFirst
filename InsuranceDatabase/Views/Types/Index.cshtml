@@ -6,50 +6,62 @@
 
 <h2>Види страхування за категорією @ViewBag.CategoryName </h2>
 <hr />
-<p>
-    <a asp-action="Create" asp-route-categoryId="@ViewBag.CategoryId">Додати вид страхування</a>
-</p>
+@if (User.IsInRole("broker") || User.IsInRole("admin"))
+{
+    <p>
+        @Html.ActionLink("Додати вид страхування", "Create", new { categoryId = @ViewBag.CategoryId })
+    </p>
+}
 
 <p><a asp-action="Brokers" asp-route-categoryId="@ViewBag.CategoryId">Брокери в цій категорії </a></p>
-    <table class="table  table-responsive-sm">
-        <thead>
-            <tr class="table-primary">
-                <th>
-                    @Html.DisplayNameFor(model => model.Type)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Info)
-                </th>
-                <th>
-                    @Html.DisplayNameFor(model => model.Category)
-                </th>
-                <th></th>
-            </tr>
-        </thead>
-        <tbody>
-             @foreach (var item in Model)
-             {
-            <tr class="table-light">
-                <td>
-                    @Html.DisplayFor(modelItem => item.Type)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Info)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Category.Category)
-                </td>
-               
-                    <td>
-                        <a asp-action="Edit" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Редагувати</a> |
-                        <a asp-action="Details" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Деталі</a> |
-                        <a asp-action="Delete" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Видалити</a>
-                    </td>
-                
-            </tr>
-             }
-            
-        </tbody>
+<table class="table  table-responsive-sm">
+    <thead>
+        <tr class="table-primary">
+            <th>
+                @Html.DisplayNameFor(model => model.Type)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Info)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Category)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+        <tr class="table-light">
+            <td>
+                @Html.DisplayFor(modelItem => item.Type)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Info)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Category.Category)
+            </td>
 
-    </table>
+            @if (User.IsInRole("broker") || User.IsInRole("admin"))
+            {
+                <td>
+                    <a asp-action="Edit" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Редагувати</a> |
+                    <a asp-action="Details" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Деталі</a> |
+                    <a asp-action="Delete" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Видалити</a>
+                </td>
+            }
+            else
+            {
+                <td>
+                    <a asp-action="Details" asp-route-categoryId="@item.CategoryId" asp-route-id="@item.Id">Деталі</a>
+                </td>
+            }
+
+        </tr>
+        }
+
+    </tbody>
+
+</table>
 

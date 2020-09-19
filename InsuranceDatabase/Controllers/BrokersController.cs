@@ -13,7 +13,7 @@ using System.IO;
 
 namespace InsuranceDatabase.Controllers
 {
-    //[Authorize(Roles = "admin,broker")] 
+   
     public class BrokersController : Controller
     {
         private readonly InsuranceContext _context;
@@ -87,6 +87,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Create
+        [Authorize(Policy = "RequireBrokerRole")]
         public IActionResult Create()
         {
             return View();
@@ -131,6 +132,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Edit/5
+        [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Edit(int? id)
         {
           
@@ -224,6 +226,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Delete/5
+        [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)

@@ -58,7 +58,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Types/Create
-        //[Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Policy = "RequireBrokerRole")]
         public IActionResult Create(int categoryId)
         {
 
@@ -86,7 +86,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Types/Edit/5
-        //[Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Edit(int? categoryId, int? id)
         {
 
@@ -146,7 +146,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Types/Delete/5
-        //[Authorize(Policy = "RequireBrokerRole")]
+       [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Delete(int? categoryId, int? id)
         {
             if (id == null)

@@ -6,9 +6,12 @@
 
 <h1>Брокери в категорії @ViewBag.CategoryName</h1>
 
+@if (User.IsInRole("broker") || User.IsInRole("admin"))
+{
     <p>
         <a asp-action="Create" asp-route-categoryId="@ViewBag.CategoryId">Додати брокера до категорії</a>
     </p>
+}
 
 <table class="table image-table table-responsive-sm">
     <thead>
@@ -39,14 +42,22 @@
             <td>
                 @Html.DisplayFor(modelItem => item.Broker.Surname)
             </td>
-           
+
+            @if (User.IsInRole("broker") || User.IsInRole("admin"))
+            {
                 <td>
                     <a asp-action="Edit" asp-route-id="@item.Id" asp-route-categoryId="@ViewBag.CategoryId">Редагувати</a> |
                     <a asp-action="Details" asp-route-id="@item.Id" asp-route-categoryId="@ViewBag.CategoryId">Деталі</a> |
                     <a asp-action="Delete" asp-route-id="@item.Id" asp-route-categoryId="@ViewBag.CategoryId">Видалити</a>
                 </td>
+            }
+            else
+            {
+                <td></td>
+            }
 
-            </tr>
+
+        </tr>
         }
     </tbody>
 </table>

@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceDatabase.Controllers
 {
-    //[Authorize(Roles = "admin,broker")] 
+    [Authorize(Roles = "admin,broker")] 
     public class ClientsController : Controller
     {
         private readonly InsuranceContext _context;

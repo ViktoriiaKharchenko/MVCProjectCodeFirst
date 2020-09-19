@@ -8,6 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using InsuranceDatabase;
 using Microsoft.AspNetCore.Http;
 using System.IO;
+using Microsoft.AspNetCore.Authorization;
 //using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceDatabase.Controllers
@@ -50,7 +51,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Create
-      //  [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Policy = "RequireBrokerRole")]
         public IActionResult Create()
         {
             return View();
@@ -73,7 +74,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Edit/5
-        //[Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.CategoryName = _context.Categories.Find(id).Category;
@@ -95,7 +96,6 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-
         public async Task<IActionResult> Edit(int id, [Bind("Id,Category")] Categories categories)
         {
             if (id != categories.Id)
@@ -127,7 +127,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Delete/5
-        //[Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Policy = "RequireBrokerRole")]
         public async Task<IActionResult> Delete(int? id)
         {
             ViewBag.CategoryName = _context.Categories.Find(id).Category;
