@@ -6,6 +6,7 @@ namespace LibraryMVC
 {
     public class RoleInitializer
     {
+
         public static async Task InitializeAsync(UserManager<User> userManager, RoleManager<IdentityRole> roleManager)
         {
             string adminEmail = "admin@gmail";

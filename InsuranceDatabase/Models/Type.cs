@@ -9,7 +9,7 @@ namespace InsuranceDatabase
     {
         public Types()
         {
-            //Documents = new HashSet<Documents>();
+            Documents = new HashSet<Documents>();
         }
 
         public int Id { get; set; }
@@ -25,6 +25,6 @@ namespace InsuranceDatabase
 
         [Display(Name = "Категорія")]
         public virtual Categories Category { get; set; }
-       // public virtual ICollection<Documents> Documents { get; set; }
+       public virtual ICollection<Documents> Documents { get; set; }
     }
 }

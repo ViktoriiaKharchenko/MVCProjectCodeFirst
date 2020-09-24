@@ -6,8 +6,14 @@
       "connectionId": "DefaultConnection",
       "secretStore": "AzureAppSettings"
     },
+    "secrets1": {
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.KeyVault/vaults/InsuranceDatabasevault",
+      "type": "secrets.keyVault",
+      "connectionId": "VaultUri",
+      "secretStore": "AzureAppSettings"
+    },
     "mssql2": {
-      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourceGroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/insurancedatabasedbserver/databases/InsuranceDatabase",
+      "resourceId": "/subscriptions/[parameters('subscriptionId')]/resourcegroups/[parameters('resourceGroupName')]/providers/Microsoft.Sql/servers/insurancedatabasedbserver/databases/InsuranceIdentity_db",
       "type": "mssql.azure",
       "connectionId": "IdentityConnection",
       "secretStore": "AzureAppSettings"
