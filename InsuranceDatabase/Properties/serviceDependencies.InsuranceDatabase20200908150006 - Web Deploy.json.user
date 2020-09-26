@@ -1,11 +1,31 @@
 {
   "dependencies": {
+    "mssql2": {
+      "restored": true,
+      "restoreTime": "2020-09-19T11:27:00.972652Z"
+    },
+    "secrets1": {
+      "restored": true,
+      "restoreTime": "2020-09-19T14:05:57.9706055Z"
+    },
     "mssql1": {
       "restored": true,
       "restoreTime": "2020-09-08T12:11:26.1444005Z"
     }
   },
   "parameters": {
+    "mssql2.subscriptionId": {
+      "Type": "subscription",
+      "Value": "c1ac0692-f7f4-40b5-ac6c-80d0dc3ccd82"
+    },
+    "mssql2.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "InsuranceDatabase20200908150006ResourceGroup"
+    },
+    "secrets1.resourceGroupName": {
+      "Type": "resourceGroup",
+      "Value": "InsuranceDatabase20200908150006ResourceGroup"
+    },
     "mssql1.subscriptionId": {
       "Type": "subscription",
       "Value": "c1ac0692-f7f4-40b5-ac6c-80d0dc3ccd82"
@@ -13,6 +33,10 @@
     "mssql1.resourceGroupName": {
       "Type": "resourceGroup",
       "Value": "InsuranceDatabase20200908150006ResourceGroup"
+    },
+    "secrets1.subscriptionId": {
+      "Type": "subscription",
+      "Value": "c1ac0692-f7f4-40b5-ac6c-80d0dc3ccd82"
     }
   }
 }
