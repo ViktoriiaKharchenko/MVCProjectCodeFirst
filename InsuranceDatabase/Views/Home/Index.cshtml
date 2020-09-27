@@ -11,17 +11,95 @@
     <meta charset="utf-8">
     <title>slider</title>
 
+    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ&callback=initMap&libraries=places&v=weekly"
+            defer></script>
+    <style type="text/css">
+        /* Always set the map height explicitly to define the size of the div
+        * element that contains the map. */
+        #map {
+            /*height: 100%;*/
+            height: 500px;
+        }
+
+        /* Optional: Makes the sample page fill the window. */
+        /*html,
+        body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }*/
+    </style>
+    <script>
+        "use strict";
+
+        // This example requires the Places library. Include the libraries=places
+        // parameter when you first load the API. For example:
+        // <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&libraries=places">
+        let map;
+        let service;
+        let infowindow;
+
+        function initMap() {
+            const sydney = new google.maps.LatLng(50.4500336, 30.5241361);
+            infowindow = new google.maps.InfoWindow();
+            map = new google.maps.Map(document.getElementById("map"), {
+                center: sydney,
+                zoom: 15,
+            });
+            /*let streets = [];
+            $.get('/api/Maps/JsonMapsData', function (jsonData) {
+                for (var st in jsonData) {
+                    streets += st[1];
+                }
+                //var data = new google.visualization.DataTable();
+                /*data = google.visualization.arrayToDataTable(jsonData, false);
+                var option = {
+                    title: "Співвідношення послуг та категорій",
+                    width: 700,
+                    height: 550
+
+                }; 
+            });*/
+
+            const request = {
+                query: "вул. Матеюка 20", //streets,
+                fields: ["name", "geometry"],
+            };
+            service = new google.maps.places.PlacesService(map);
+            service.findPlaceFromQuery(request, (results, status) => {
+                if (status === google.maps.places.PlacesServiceStatus.OK) {
+                    for (let i = 0; i < results.length; i++) {
+                        createMarker(results[i]);
+                    }
+
+                    map.setCenter(results[0].geometry.location);
+                }
+            });
+        }
+
+        function createMarker(place) {
+            const marker = new google.maps.Marker({
+                map,
+                position: place.geometry.location,
+            });
+            google.maps.event.addListener(marker, "click", () => {
+                infowindow.setContent(place.name);
+                infowindow.open(map);
+            });
+        }
+    </script>
 </head>
 <body>
     <h1 id="title-main-page1" align="center"> Cтрахові послуги онлайн</h1>
     <h4 id="title-main-page4" align="center"> Cтрахові послуги онлайн</h4>
     <hr />
 
-    <div id="box">
+    <!--<div id="box">
         <ul id="images">
             <li id="image1">
                 <img id="large_image" style="padding: 0 0 0 8px;" src="~/image/what-is-a-life-insurance-agent-l.jpg">
-                <!--<img id="sm_image" style="padding: 0 0 0 8px;" src="~/image/Business-Banner-Resting.jpg">-->
+                <!--<img id="sm_image" style="padding: 0 0 0 8px;" src="~/image/Business-Banner-Resting.jpg">
             </li>
             <li id="image3">
                 <img id="large_image" style="padding: 0 0 0 8px;" src="~/image/insurance-customer-experience.png">
@@ -33,9 +111,13 @@
             <img class="img-fluid" alt="Responsive image" id="sm_image" style="padding: 0 0 0 8px;"
                  src="~/image/Business-Banner-Resting.jpg" />
         </div>
-    </div>
-    <div id="map">
+    </div>-->
+    <!--<div id="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2135.3606296738058!2d30.640476449089075!3d50.47115635949718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4d00a02659d21%3A0x8af88e7bb76dba2e!2z0LLRg9C70LjRhtGPINCc0LjQutC-0LvQuCDQnNCw0YLQtdGO0LrQsCwgMjAsINCa0LjRl9CyLCAwMjAwMA!5e0!3m2!1suk!2sua!4v1601043954057!5m2!1suk!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
-    </div>
+    </div>-->
+
+    
+
+    <div id="map"></div>
 </body>
 </html>
