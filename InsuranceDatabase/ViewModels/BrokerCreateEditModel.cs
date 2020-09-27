@@ -40,6 +40,7 @@ namespace InsuranceDatabase.ViewModels
         [Display(Name = "Електронна пошта")]
         public string Email { get; set; }
 
+        [Display(Name = "Адреса")]
         public string Adress { get; set; }
 
         [Display(Name = "Фото")]

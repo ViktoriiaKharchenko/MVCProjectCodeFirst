@@ -31,12 +31,6 @@
         <dt class="col-sm-2">
             @Html.DisplayNameFor(model => model.BrokersCategories)
         </dt>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Adress)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Adress)
-        </dd>
         @if (ViewBag.Count == 0)
         {
             <dd class="col-sm-10">
@@ -55,12 +49,17 @@
             }
 
         }
-
         <dt class="col-sm-2">
         </dt>
         <dd class="col-sm-10">
             <p><a asp-action="Index" asp-route-brokerId="@Model.Id">Переглянути інших брокерів в цих категоріях </a></p>
 
+        </dd>
+        <dt class="col-sm-2">
+            @Html.DisplayNameFor(model => model.Adress)
+        </dt>
+        <dd class="col-sm-10">
+            @Html.DisplayFor(model => model.Adress)
         </dd>
         @if (User.IsInRole("broker") || User.IsInRole("admin"))
         {

@@ -46,6 +46,7 @@ namespace InsuranceDatabase
         [Display(Name = "Електронна пошта")]
         public string Email { get; set; }
         public string ImagePath { get; set; }
+        [Display(Name = "Адреса")]
         public string Adress { get; set; }
         
 
