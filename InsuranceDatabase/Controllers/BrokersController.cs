@@ -87,7 +87,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Create
-        [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Roles = "admin,broker")]
         public IActionResult Create()
         {
             return View();
@@ -98,7 +98,7 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,Name,Surname,BirthDate,PhoneNum,Passport,Email,Photo")] BrokerCreateEditModel brokerModel)
+        public async Task<IActionResult> Create([Bind("Id,Name,Surname,BirthDate,PhoneNum,Adress,Passport,Email,Photo")] BrokerCreateEditModel brokerModel)
         {
 
             if (ModelState.IsValid)
@@ -120,6 +120,7 @@ namespace InsuranceDatabase.Controllers
                     Surname = brokerModel.Surname,
                     BirthDate = brokerModel.BirthDate,
                     PhoneNum = brokerModel.PhoneNum,
+                    Adress = brokerModel.Adress,
                     Passport = brokerModel.Passport,
                     Email = brokerModel.Email,
                     ImagePath = uniqueFileName
@@ -132,7 +133,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Edit/5
-        [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Roles = "admin,broker")]
         public async Task<IActionResult> Edit(int? id)
         {
           
@@ -154,6 +155,7 @@ namespace InsuranceDatabase.Controllers
                 Surname = brokers.Surname,
                 BirthDate = brokers.BirthDate,
                 PhoneNum = brokers.PhoneNum,
+                Adress = brokers.Adress,
                 Passport = brokers.Passport,
                 Email = brokers.Email
             };
@@ -166,7 +168,7 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,PhoneNum,Passport,Email,Password,Photo, ImagePath")] BrokerCreateEditModel brokerModel)
+        public async Task<IActionResult> Edit(int id, [Bind("Name,Surname,BirthDate,PhoneNum,Passport,Adress,Email,Password,Photo, ImagePath")] BrokerCreateEditModel brokerModel)
         {
 
             if (ModelState.IsValid)
@@ -189,6 +191,7 @@ namespace InsuranceDatabase.Controllers
                     findbroker.Surname = brokerModel.Surname;
                     findbroker.BirthDate = brokerModel.BirthDate;
                     findbroker.PhoneNum = brokerModel.PhoneNum;
+                    findbroker.Adress = brokerModel.Adress;
                     findbroker.Passport = brokerModel.Passport;
                     findbroker.Email = brokerModel.Email;
 
@@ -226,7 +229,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Brokers/Delete/5
-        [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Roles = "admin,broker")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
