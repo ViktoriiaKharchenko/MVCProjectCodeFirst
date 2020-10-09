@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceDatabase.Controllers
 {
-
+   
     public class CategoriesController : Controller
     {
         private readonly InsuranceContext _context;
@@ -51,7 +51,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Create
-        [Authorize(Policy = "RequireBrokerRole")]
+        
         public IActionResult Create()
         {
             return View();
