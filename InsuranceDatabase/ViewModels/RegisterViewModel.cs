@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authentication;
+using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace LibraryMVC.ViewModel
@@ -24,6 +26,7 @@ namespace LibraryMVC.ViewModel
         [Display(Name = "Підтвердження паролю")]
         [DataType(DataType.Password)]
         public string PasswordConfirm { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
 
     }
 }

@@ -1,4 +1,8 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.AspNetCore.Authentication;
+using Org.BouncyCastle.Asn1.Cms;
+using System.Collections;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 namespace LibraryMVC.ViewModels
 {
     public class LoginViewModel
@@ -13,5 +17,6 @@ namespace LibraryMVC.ViewModels
         [Display(Name = "Запам'ятати")]
         public bool RememberMe { get; set; }
         public string ReturnUrl { get; set; }
+        public IList<AuthenticationScheme> ExternalLogins { get; set; }
     }
 }

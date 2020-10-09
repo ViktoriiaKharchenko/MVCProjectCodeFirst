@@ -11,6 +11,8 @@ using MailKit.Net.Smtp;
 using System;
 using LibraryMVC.ViewModels;
 using Microsoft.Extensions.Configuration;
+using System.Security.Claims;
+using Microsoft.VisualBasic;
 
 namespace LibraryMVC.Controllers
 {
@@ -27,9 +29,13 @@ namespace LibraryMVC.Controllers
             _config = config;
         }
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View();
+            return View(new RegisterViewModel
+            {
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            });
+           
         }
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
@@ -64,14 +70,82 @@ namespace LibraryMVC.Controllers
                     }
                 }
             }
-            return View(model);
+            return View(new RegisterViewModel
+            {
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            });
         }
 
         [HttpGet]
-        public IActionResult Login(string returnUrl = null)
+        public async Task<IActionResult> Login(string returnUrl = null)
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+
+            return View(new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            }) ; 
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult ExternalLogins(string provider, string returnUrl)
+        {
+            var redirectUrl = Url.Action("ExternalLoginCallback", "Account",
+                new { ReturnUrl = returnUrl });
+            var properties = _signInManager.ConfigureExternalAuthenticationProperties(provider, redirectUrl);
+            return new ChallengeResult(provider, properties);
+        }
+        [AllowAnonymous]
+        public async Task<IActionResult> ExternalLoginCallback(string returnUrl = null, string remoteError = null)
+        {
+            returnUrl = returnUrl ?? Url.Content("~/");
+            LoginViewModel loginViewModel = new LoginViewModel
+            {
+                ReturnUrl = returnUrl,
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            };
+            if(remoteError != null)
+            {
+                ModelState.AddModelError(String.Empty, $"Error from external provider: {remoteError}");
+                return View("Login", loginViewModel);
+            }
+            var info = await _signInManager.GetExternalLoginInfoAsync();
+            if(info == null)
+            {
+                ModelState.AddModelError(String.Empty, "Error from loading external login information");
+                return View("Login", loginViewModel);
+            }
+            var signInResult = await _signInManager.ExternalLoginSignInAsync(info.LoginProvider, info.ProviderKey,
+                isPersistent: false, bypassTwoFactor: true);
+            if (signInResult.Succeeded)
+            {
+                return LocalRedirect(returnUrl);
+            }
+            else
+            {
+                var email = info.Principal.FindFirstValue(ClaimTypes.Email);
+                if(email != null)
+                {
+                    var user = await _userManager.FindByEmailAsync(email);
+                    if(user == null)
+                    {
+                        user = new User
+                        {
+                            UserName = info.Principal.FindFirstValue(ClaimTypes.Email),
+                            Email = info.Principal.FindFirstValue(ClaimTypes.Email)
+                        };
+                        await _userManager.CreateAsync(user);
+                    }
+                        await _userManager.AddLoginAsync(user, info);
+                    await _signInManager.SignInAsync(user, isPersistent:false);
+                    return LocalRedirect(returnUrl);
+                }
+                ViewBag.ErrorTitle = $"Email claim not received from: {info.LoginProvider}";
+                return View("Error");
+            }
+
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Login(LoginViewModel model)
@@ -86,7 +160,10 @@ namespace LibraryMVC.Controllers
                     if (!await _userManager.IsEmailConfirmedAsync(user) && !(user.Email == "admin@gmail"))
                     {
                         ModelState.AddModelError(string.Empty, "Ви не підтвердили свій Email");
-                        return View(model);
+                        return View(new LoginViewModel
+                        {
+                            ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+                        });
                     }
                 }
 
@@ -101,7 +178,10 @@ namespace LibraryMVC.Controllers
                     ModelState.AddModelError("", "Невірний логін та(або) пароль");
                 }
             }
-            return View(model);
+            return View(new LoginViewModel
+            {
+                ExternalLogins = (await _signInManager.GetExternalAuthenticationSchemesAsync()).ToList()
+            });
         }
 
         [HttpGet]

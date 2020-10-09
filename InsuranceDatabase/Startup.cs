@@ -6,6 +6,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.AspNetCore.Identity;
 using LibraryMVC.Models;
 
+
 namespace InsuranceDatabase
 {
     public class Startup
@@ -28,7 +29,20 @@ namespace InsuranceDatabase
             string connectionIdentity = Configuration.GetConnectionString("IdentityConnection");
             services.AddDbContext<IdentityContext>(options => options.UseSqlServer(connectionIdentity));
             services.AddControllersWithViews();
-
+            services.AddAuthentication()
+            .AddGoogle(options =>
+            {
+           IConfigurationSection googleAuthNSection =
+               Configuration.GetSection("Authentication:Google");
+               
+                options.ClientId = googleAuthNSection["ClientId"];
+           options.ClientSecret = googleAuthNSection["ClientSecret"];
+             });
+            services.AddAuthentication().AddFacebook(facebookOptions =>
+            {
+                facebookOptions.AppId = Configuration["Authentication:Facebook:AppId"];
+                facebookOptions.AppSecret = Configuration["Authentication:Facebook:AppSecret"];
+            });
             services.AddIdentity<User, IdentityRole>(opts => {
                 opts.Password.RequiredLength = 6;   // минимальная длина
                 opts.Password.RequireNonAlphanumeric = false;   // требуются ли не алфавитно-цифровые символы
@@ -51,7 +65,7 @@ namespace InsuranceDatabase
 
             app.UseAuthentication();
             app.UseAuthorization();
-
+            
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapControllerRoute(
