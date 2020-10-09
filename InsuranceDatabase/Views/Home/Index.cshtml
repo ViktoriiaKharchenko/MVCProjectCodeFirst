@@ -11,10 +11,10 @@
     <meta charset="utf-8">
     <title>slider</title>
 
-    <script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
+    <!--<script src="https://polyfill.io/v3/polyfill.min.js?features=default"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ&callback=initMap&libraries=places&v=weekly"
             defer></script>
-    <style type="text/css">
+    <!--<style type="text/css">
         /* Always set the map height explicitly to define the size of the div
         * element that contains the map. */
         #map {
@@ -62,21 +62,36 @@
                 }; 
             });*/
 
-            const request = {
-                query: "вул. Матеюка 20", //streets,
-                fields: ["name", "geometry"],
-            };
-            service = new google.maps.places.PlacesService(map);
-            service.findPlaceFromQuery(request, (results, status) => {
-                if (status === google.maps.places.PlacesServiceStatus.OK) {
-                    for (let i = 0; i < results.length; i++) {
-                        createMarker(results[i]);
-                    }
+            $.get('/api/Maps/JsonMapsData', function (jsonData) {
+                for (var st in jsonData) {
 
-                    map.setCenter(results[0].geometry.location);
+                    const request = {
+                        query: "вул. Матеюка 20", //streets,
+                        fields: ["name", "geometry"],
+                    };
+                    service = new google.maps.places.PlacesService(map);
+                    /*var showPlaces = function (results, status) {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            for (let i = 0; i < results.length; i++) {
+                                createMarker(results[i]);
+                            }
+        
+                            map.setCenter(results[0].geometry.location);
+                        }
+                    }*/
+                    service.findPlaceFromQuery(request, (results, status) => {
+                        if (status === google.maps.places.PlacesServiceStatus.OK) {
+                            for (let i = 0; i < results.length; i++) {
+                                createMarker(results[i]);
+                            }
+
+                            map.setCenter(results[0].geometry.location);
+                        }
+                    });
                 }
+
             });
-        }
+                
 
         function createMarker(place) {
             const marker = new google.maps.Marker({
@@ -88,12 +103,13 @@
                 infowindow.open(map);
             });
         }
-    </script>
+    </script>-->
 </head>
 <body>
     <h1 id="title-main-page1" align="center"> Cтрахові послуги онлайн</h1>
     <h4 id="title-main-page4" align="center"> Cтрахові послуги онлайн</h4>
     <hr />
+
 
     <!--<div id="box">
         <ul id="images">
@@ -115,9 +131,86 @@
     <!--<div id="map">
         <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2135.3606296738058!2d30.640476449089075!3d50.47115635949718!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40d4d00a02659d21%3A0x8af88e7bb76dba2e!2z0LLRg9C70LjRhtGPINCc0LjQutC-0LvQuCDQnNCw0YLQtdGO0LrQsCwgMjAsINCa0LjRl9CyLCAwMjAwMA!5e0!3m2!1suk!2sua!4v1601043954057!5m2!1suk!2sua" width="600" height="450" frameborder="0" style="border:0;" allowfullscreen="" aria-hidden="false" tabindex="0"></iframe>
     </div>-->
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ"
+            defer></script>
+   <!-- <script src="https://maps.google.com/maps/api/js?sensor=true" type="text/javascript"></script>-->
+
+    <style>
+        .adressInfo {
+            height: 180px;
+            width: 250px;
+        }
+    </style>
+
+    <div id="map" style="height: 600px;"></div>
+
+    <!--Устанавливаем секцию scripts, которая затем будет рендериться на мастер-странице -->
+    @section scripts {
+        <script type="text/javascript">
+
+    $(document).ready(function () {
+        GetMap();
+    });
+
+    // Функция загрузки
+    function GetMap() {
+
+        google.maps.visualRefresh = true;
+        // установка основных координат
+        var Kyiv = new google.maps.LatLng(50.4500336, 30.5241361);
+
+        // Установка общих параметров отображения карты, как масштаб, центральная точка и тип карты
+        var mapOptions = {
+            zoom: 15,
+            center: Kyiv,
+            mapTypeId: google.maps.MapTypeId.G_NORMAL_MAP
+        };
+
+        // Встраиваем гугл-карты в элемент на странице и получаем объект карты
+        var map = new google.maps.Map(document.getElementById("map"), mapOptions);
+
+        // Настраиваем красный маркер, который будет использоваться для центральной точки
+        /*var myLatlng = new google.maps.LatLng(50.4500336, 30.5241361);
+
+        var marker = new google.maps.Marker({
+            position: myLatlng,
+            map: map,
+            title: 'Офіси роботи брокерів'
+        });
+
+        // Берем для маркера иконку с сайта google
+        marker.setIcon('https://maps.google.com/mapfiles/ms/icons/red-dot.png')
+        */
+        // Получаем данные
+        $.getJSON('@Url.Action("GetData","GoogleMaps")', function (data) {
+            // Проходим по всем данным и устанавливаем для них маркеры
+            $.each(data, function (i, item) {
+                //console.log(data + " " + item);
+                var marker = new google.maps.Marker({
+                    position: new google.maps.LatLng(item.geoLat, item.geoLong),
+                    map: map,
+                    title: item.adress
+                });
+
+                // Берем для этих маркеров синие иконки с сайта google
+                marker.setIcon('https://maps.google.com/mapfiles/ms/icons/blue-dot.png')
+
+                // Для каждого объекта добавляем доп. информацию, выводимую в отдельном окне
+                var infowindow = new google.maps.InfoWindow({
+                    content: "<div class='adressInfo'><h3>Брокер: " + item.name + " " + item.surname + "</h3>"
+                        + "<div><h4>Адреса офісу: " + item.adress + "</h4></div></div>"
+                });
+
+                // обработчик нажатия на маркер объекта
+                google.maps.event.addListener(marker, 'click', function () {
+                    infowindow.open(map, marker);
+                });
+            })
+        });
+    }
+        </script>
+    }
 
     
-
-    <div id="map"></div>
 </body>
 </html>

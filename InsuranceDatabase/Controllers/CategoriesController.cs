@@ -13,7 +13,7 @@ using Microsoft.AspNetCore.Authorization;
 
 namespace InsuranceDatabase.Controllers
 {
-   
+
     public class CategoriesController : Controller
     {
         private readonly InsuranceContext _context;
@@ -51,7 +51,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Create
-        
+        [Authorize(Roles = "admin,broker")]
         public IActionResult Create()
         {
             return View();
@@ -74,7 +74,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Edit/5
-        [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Roles = "admin,broker")]
         public async Task<IActionResult> Edit(int? id)
         {
             ViewBag.CategoryName = _context.Categories.Find(id).Category;
@@ -127,7 +127,7 @@ namespace InsuranceDatabase.Controllers
         }
 
         // GET: Categories/Delete/5
-        [Authorize(Policy = "RequireBrokerRole")]
+        [Authorize(Roles = "admin,broker")]
         public async Task<IActionResult> Delete(int? id)
         {
             ViewBag.CategoryName = _context.Categories.Find(id).Category;
