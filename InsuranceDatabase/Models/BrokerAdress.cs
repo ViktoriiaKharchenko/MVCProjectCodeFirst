@@ -13,8 +13,8 @@ namespace InsuranceDatabase.Models
         public string FullName { get { return this.Name + " " + this.Surname; } set { } }
         public string Adress { get; set; }
 
-        public double GeoLong { get; set; } // долгота - для карт google
-        public double GeoLat { get; set; } // широта - для карт google
+        public double? GeoLong { get; set; } // долгота - для карт google
+        public double? GeoLat { get; set; } // широта - для карт google
         
         //public string LongLat { get; set; }
     }

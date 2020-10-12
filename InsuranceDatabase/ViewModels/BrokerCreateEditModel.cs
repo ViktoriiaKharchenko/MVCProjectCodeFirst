@@ -42,6 +42,8 @@ namespace InsuranceDatabase.ViewModels
 
         [Display(Name = "Адреса")]
         public string Adress { get; set; }
+        public double? GeoLatitude { get; set; }
+        public double? GeoLongitude { get; set; }
 
         [Display(Name = "Фото")]
         public IFormFile Photo { get; set; }

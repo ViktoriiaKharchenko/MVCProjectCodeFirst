@@ -48,7 +48,9 @@ namespace InsuranceDatabase
         public string ImagePath { get; set; }
         [Display(Name = "Адреса")]
         public string Adress { get; set; }
-        
+        public double? GeoLatitude { get; set; }
+        public double? GeoLongitude { get; set; }
+
 
         [Display(Name = "Категорії")]
        public virtual ICollection<BrokersCategories> BrokersCategories { get; set; }

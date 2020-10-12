@@ -10,6 +10,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
+using GoogleMapsAPI.NET.API.Client;
 
 namespace InsuranceDatabase.Controllers
 {
@@ -114,6 +115,10 @@ namespace InsuranceDatabase.Controllers
                     fileStream.Close();
                     
                 }
+                if (brokerModel.Adress == null) brokerModel.Adress = "вул. Матеюка 20";
+                var client = new MapsAPIClient("AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ");
+                var geocodeResult = client.Geocoding.Geocode(brokerModel.Adress).Results.FirstOrDefault().Geometry.Location;
+
                 Brokers newBroker = new Brokers
                 {
                     Name = brokerModel.Name,
@@ -121,6 +126,8 @@ namespace InsuranceDatabase.Controllers
                     BirthDate = brokerModel.BirthDate,
                     PhoneNum = brokerModel.PhoneNum,
                     Adress = brokerModel.Adress,
+                    GeoLatitude = (Double)geocodeResult.Latitude,
+                    GeoLongitude = (Double)geocodeResult.Longitude,
                     Passport = brokerModel.Passport,
                     Email = brokerModel.Email,
                     ImagePath = uniqueFileName
@@ -156,6 +163,8 @@ namespace InsuranceDatabase.Controllers
                 BirthDate = brokers.BirthDate,
                 PhoneNum = brokers.PhoneNum,
                 Adress = brokers.Adress,
+                GeoLatitude = brokers.GeoLatitude,
+                GeoLongitude = brokers.GeoLongitude,
                 Passport = brokers.Passport,
                 Email = brokers.Email
             };
@@ -186,12 +195,24 @@ namespace InsuranceDatabase.Controllers
                         brokerModel.Photo.CopyTo(fileStream);
                         fileStream.Close();
                     }
-
+                
                     findbroker.Name = brokerModel.Name;
                     findbroker.Surname = brokerModel.Surname;
                     findbroker.BirthDate = brokerModel.BirthDate;
                     findbroker.PhoneNum = brokerModel.PhoneNum;
                     findbroker.Adress = brokerModel.Adress;
+                   /* if (brokerModel.Adress == "вул. Матеюка 20")
+                    {
+                        findbroker.GeoLatitude = brokerModel.GeoLatitude;
+                        findbroker.GeoLongitude = brokerModel.GeoLongitude;
+                    }
+                    else
+                    {*/
+                        var client = new MapsAPIClient("AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ");
+                        var geocodeResult = client.Geocoding.Geocode(brokerModel.Adress).Results.FirstOrDefault().Geometry.Location;
+                        findbroker.GeoLatitude = (Double)geocodeResult.Latitude;
+                        findbroker.GeoLongitude = (Double)geocodeResult.Longitude;
+                    //}
                     findbroker.Passport = brokerModel.Passport;
                     findbroker.Email = brokerModel.Email;
 
