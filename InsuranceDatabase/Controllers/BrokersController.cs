@@ -11,6 +11,8 @@ using Microsoft.Extensions.Hosting;
 using Microsoft.AspNetCore.Hosting;
 using System.IO;
 using GoogleMapsAPI.NET.API.Client;
+using System.Web;
+using System.Text;
 
 namespace InsuranceDatabase.Controllers
 {
@@ -354,7 +356,7 @@ namespace InsuranceDatabase.Controllers
                 if (Name.Length < 2) { return Json(data: "Невірний формат данних"); }
                 for (int i = 0; i < Name.Length; i++)
                 {
-                    if ((Name[i] < 'А' || Name[i] > 'ї') && Name[i] != 'І') { return Json(data: "Невірний формат данних"); }
+                    //if ((Name[i] < 'А' || Name[i] > 'ї') && Name[i] != 'І') { return Json(data: "Невірний формат данних"); }
                 }
             }
             return Json(data: true);
@@ -390,6 +392,7 @@ namespace InsuranceDatabase.Controllers
 
         }
 
+       
         private bool BrokersExists(int id)
         {
             return _context.Brokers.Any(e => e.Id == id);

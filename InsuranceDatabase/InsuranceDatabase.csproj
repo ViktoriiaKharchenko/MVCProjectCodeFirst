@@ -6,6 +6,21 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="wwwroot\lib\jquery-ui\external\**" />
+    <Compile Remove="wwwroot\lib\jquery-ui\images\**" />
+    <Content Remove="wwwroot\lib\jquery-ui\external\**" />
+    <Content Remove="wwwroot\lib\jquery-ui\images\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-ui\external\**" />
+    <EmbeddedResource Remove="wwwroot\lib\jquery-ui\images\**" />
+    <None Remove="wwwroot\lib\jquery-ui\external\**" />
+    <None Remove="wwwroot\lib\jquery-ui\images\**" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Remove="wwwroot\debug.log" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Azure.Extensions.AspNetCore.Configuration.Secrets" Version="1.0.0" />
     <PackageReference Include="Azure.Identity" Version="1.1.1" />
     <PackageReference Include="EntityFramework" Version="6.4.4" />

@@ -63,9 +63,12 @@ namespace InsuranceDatabase.Controllers
         public IActionResult Create(int? categoryId)
         {
             // ViewBag.BrokerId = brokerId;
+            //var brokerName = "name";
             ViewBag.CategoryId = categoryId;
+            //ViewBag.brokerName = brokerName;
             //var brokersCategories = await _context.BrokersCategories.FindAsync(id);
-            ViewData["BrokersId"] = new SelectList(_context.Brokers, "Id", "FullName");
+            //ViewData["BrokersId"] = new SelectList(_context.Brokers, "Id", "FullName");
+           // ViewData["BrokersId"] = _context.Brokers;
             ViewData["CategoriesId"] = new SelectList(_context.Categories.Where(b => b.Id == categoryId), "Id", "Category");
             return View();
         }
@@ -75,8 +78,11 @@ namespace InsuranceDatabase.Controllers
         // more details see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create(int brokerId, int categoryId, [Bind("Id,BrokerId,CategoryId")] BrokersCategories brokersCategories)
+        public async Task<IActionResult> Create(string brokerName, int categoryId, [Bind("Id,BrokerId,CategoryId")] BrokersCategories brokersCategories)
         {
+           /* var brokersName = brokerName; //brokersCategories.Broker.Name;
+            var broker = await _context.Brokers.FindAsync(brokersName);
+            brokersCategories.BrokerId = broker.Id;*/
 
             _context.Add(brokersCategories);
 
@@ -196,6 +202,21 @@ namespace InsuranceDatabase.Controllers
                 return Json(data: "Такий брокер вже є в цій категорії");
             }
             else return Json(data: true);
+        }
+        [HttpGet("autocomplete")]
+        public IActionResult Autocomplete()
+        {
+            try
+            {
+                string term = HttpContext.Request.Query["term"].ToString();
+                //var names = _context.Brokers.Where(p => p.FullName.Contains(term)).Select(p => p.FullName).ToList();
+                var names = _context.Brokers.Where(p => p.FullName.Contains(term)).ToList();
+                return Ok(names);
+            }
+            catch
+            {
+                return BadRequest();
+            }
         }
         private bool BrokersCategoriesExists(int id)
         {

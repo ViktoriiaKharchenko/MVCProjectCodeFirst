@@ -13,12 +13,7 @@
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/jquery-validation/dist/jquery.validate.js"></script>
     <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.js"></script>
-    <!--<script defer
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ&callback=initMap">
-    </script>
-
-    <script type="text/javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBfckBchOpn-lM4oJ9V9nBDBZmmlousIRQ&libraries=places"></script>
-    -->
+    
     <link rel="stylesheet" href="~/css/site.css" />
     <link rel="stylesheet" href="~/css/my style.css" />
     <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
@@ -65,16 +60,16 @@
                     }
                     else
                     {
-                <ul class="navbar-nav mr-auto">
+                        <ul class="navbar-nav mr-auto">
 
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Categories" asp-action="Index">Категорії<span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-controller="Brokers" asp-action="Index">Брокери</a>
-                    </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Categories" asp-action="Index">Категорії<span class="sr-only">(current)</span></a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" asp-controller="Brokers" asp-action="Index">Брокери</a>
+                            </li>
 
-                </ul>
+                        </ul>
                     }
                     @if (User.Identity.IsAuthenticated)
                     {
@@ -115,30 +110,33 @@
     </div>
 
     <footer id="footer" class="footer py-3 text-muted" style="bottom: -200px;">
-        <div class="container" >
-        <div class="row">
-        <div class="footer_content">
-        <div class="col-lg-12">
+        <div class="container">
+            <div class="row">
+                <div class="footer_content">
+                    <div class="col-lg-12">
 
-            <div class="contacts">
-                <h3>Contacts</h3>
-                <ul>
-                    <li class="d-flex flex-wrap">Адреса: <span>  м.Київ, вул. Матеюка 20</span></li>
-                    <li class="d-flex flex-wrap">Телефон: <a href="tel:+38095-488-44-50">  +38095-488-44-50</a></li>
-                    <li class="d-flex flex-wrap">Електронна адреса: <a href="mailto:insurance.database@gmail.com">insurance.database@gmail.com</a></li>
-                </ul>
+                        <div class="contacts">
+                            <h3>Contacts</h3>
+                            <ul>
+                                <li class="d-flex flex-wrap">Адреса: <span>  м.Київ, вул. Матеюка 20</span></li>
+                                <li class="d-flex flex-wrap">Телефон: <a href="tel:+38095-488-44-50">  +38095-488-44-50</a></li>
+                                <li class="d-flex flex-wrap">Електронна адреса: <a href="mailto:insurance.database@gmail.com">insurance.database@gmail.com</a></li>
+                            </ul>
+                        </div>
+
+                    </div>
+
+                </div>
             </div>
-
         </div>
 
-    </div>
-        </div>
-        </div>
-     
     </footer>
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.js"></script>
+    <script src="~/lib/jquery-ui/jquery-ui.min.js"></script>
+    <link rel="stylesheet" href="~/lib/jquery-ui/jquery-ui.css">
 
     @RenderSection("Scripts", required: false)
 </body>
