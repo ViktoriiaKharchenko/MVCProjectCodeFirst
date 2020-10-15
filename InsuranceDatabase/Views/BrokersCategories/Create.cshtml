@@ -3,13 +3,7 @@
 @{
     ViewData["Title"] = "Create";
 }
-<!-- <link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
- <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>-->
-<!--<link rel="stylesheet" href="https://code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
-<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-<!--<script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-<script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>-->
+
 <hr />
 <h4>Додати брокера</h4>
 
@@ -28,7 +22,8 @@
                 <div class="ui-widget">
                     <label asp-for="Broker" class="control-label"></label>
                     <!--<select asp-for="BrokerId" class="form-control" asp-items="ViewBag.BrokersId"></select>-->
-                    <input type="text" asp-for="BrokerId" id="brokers" data-autocomplete-source="@Url.Action("AutocompleteSearch", "Autocomplete")"/>
+                    <input type="text"  id="brokerName" class="form-control" data-autocomplete-source="@Url.Action("AutocompleteSearch", "Autocomplete")"/>
+                    <input asp-for="BrokerId" type="hidden" id="autocompleteId"/>
                     <span asp-validation-for="BrokerId" class="text-danger"></span>
                 </div>
             </div>
@@ -55,46 +50,17 @@
             target.autocomplete({
                 source: target.attr("data-autocomplete-source"),
                 minLength: 3,
-                delay: 1000});
+                delay: 1500,
+                focus: function (event, ui) {
+                    event.preventDefault();
+                    $("[data-autocomplete-source]").val(ui.item.label);
+                },
+                select: function (event, ui) {
+                    event.preventDefault();
+                    $("[data-autocomplete-source]").val(ui.item.label);
+                    $("#autocompleteId").val(ui.item.value);
+                }
+            });
         });
     });
 </script>
-<!--<script>
-    $(document).ready(function () {
-
-        $('#brokers').autocomplete({
-            
-            source: '/autocomplete',
-            /*source: function (request, response) {
-                $.getJSON('Url.Action("Autocomplete", "Autocomplete")', function (data) {
-                    //let names = [];
-                    var brokers = JSON.parse(data);
-                    for (let key in brokers) {
-                        names += brokers[key][0];
-                    }
-                    //var names = broker.fullname;
-                    $.each(data, function (i, item) {
-                        names[i] = item.fullname;
-                    });
-                    response(names);
-                });*/
-                
-               /* var matcher = new RegExp("^" + $.ui.autocomplete.escapeRegex(request.term), "i");
-                response($.grep(names, function (item) {
-                    return matcher.test(item);
-                }));
-            },*/
-            /*source: function (request, response) {
-                $.getJSON('Url.RouteUrl("api/Brokers/GetBrokers")', function (data) {
-                    //$.each(data, function (i, item) { item }
-                    response(data['FullName']);
-                });
-            },*/
-            minLength: 3,
-            delay: 1000,
-            select: function (event, ui) {
-                
-            }
-        });
-    });
-</script>-->
