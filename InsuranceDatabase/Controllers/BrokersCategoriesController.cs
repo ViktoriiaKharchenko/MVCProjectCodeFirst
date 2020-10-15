@@ -110,7 +110,7 @@ namespace InsuranceDatabase.Controllers
             }
             ViewBag.CategoryId = categoryId;
 
-            ViewData["BrokersId"] = new SelectList(_context.Brokers, "Id", "FullName", brokersCategories.BrokerId);
+            //ViewData["BrokersId"] = new SelectList(_context.Brokers, "Id", "FullName", brokersCategories.BrokerId);
             ViewBag.BrokerId = brokersCategories.BrokerId;
             ViewData["CategoriesId"] = new SelectList(_context.Categories.Where(b => b.Id == categoryId), "Id", "Category", brokersCategories.CategoryId);
             return View(brokersCategories);
@@ -203,20 +203,14 @@ namespace InsuranceDatabase.Controllers
             }
             else return Json(data: true);
         }
-        [HttpGet("autocomplete")]
-        public IActionResult Autocomplete()
+        [HttpGet]
+        public JsonResult AutocompleteBrokerId(string term)
         {
-            try
-            {
-                string term = HttpContext.Request.Query["term"].ToString();
-                //var names = _context.Brokers.Where(p => p.FullName.Contains(term)).Select(p => p.FullName).ToList();
-                var names = _context.Brokers.Where(p => p.FullName.Contains(term)).ToList();
-                return Ok(names);
-            }
-            catch
-            {
-                return BadRequest();
-            }
+            var models = _context.Brokers.Where(a => a.FullName.Contains(term))
+                            .Select(a => new { label = a.FullName, value = a.Id })
+                            .Distinct();
+
+            return new JsonResult(models);
         }
         private bool BrokersCategoriesExists(int id)
         {

@@ -22,14 +22,14 @@
                 <div class="ui-widget">
                     <label asp-for="Broker" class="control-label"></label>
                     <!--<select asp-for="BrokerId" class="form-control" asp-items="ViewBag.BrokersId"></select>-->
-                    <input type="text"  id="brokerName" class="form-control" data-autocomplete-source="@Url.Action("AutocompleteSearch", "Autocomplete")"/>
+                    <input type="text"  id="brokerName" class="form-control" data-autocomplete-source="@Url.Action("AutocompleteBrokerId", "Autocomplete")"/>
                     <input asp-for="BrokerId" type="hidden" id="autocompleteId"/>
                     <span asp-validation-for="BrokerId" class="text-danger"></span>
                 </div>
             </div>
             <input type="hidden" value="@ViewBag.CategoryId" name="CategoryId" />
             <div class="form-group">
-                <input type="submit" value="Створити" class="btn btn-primary" />
+                <input type="submit" value="Додати" class="btn btn-primary" />
             </div>
 </form>
     </div>
@@ -43,24 +43,4 @@
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
 
-<script type="text/javascript">
-    $(function () {
-        $("[data-autocomplete-source]").each(function () {
-            var target = $(this);
-            target.autocomplete({
-                source: target.attr("data-autocomplete-source"),
-                minLength: 3,
-                delay: 1500,
-                focus: function (event, ui) {
-                    event.preventDefault();
-                    $("[data-autocomplete-source]").val(ui.item.label);
-                },
-                select: function (event, ui) {
-                    event.preventDefault();
-                    $("[data-autocomplete-source]").val(ui.item.label);
-                    $("#autocompleteId").val(ui.item.value);
-                }
-            });
-        });
-    });
-</script>
+<script src="~/js/autocomplete.js"></script>
