@@ -59,57 +59,59 @@
 
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Name)
+                Ім'я
+                @*@Html.DisplayNameFor(model => model.Name)*@
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Surname)
+                Прізвище
+                @*@Html.DisplayNameFor(model => model.Surname)*@
             </th>
-
-
-
+            <th></th>
+            <th></th>
             <th></th>
         </tr>
     </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-        <tr class="table-light">
-            <td>
-                @{
-                    var PhotoPath = "~/brokerImages/" + (item.ImagePath ?? "unnamed.png");
+    <tbody class="table-light" id="brokers"></tbody>
+    @*<tbody>
+            @foreach (var item in Model)
+            {
+            <tr class="table-light">
+                <td>
+                    @{
+                        var PhotoPath = "~/brokerImages/" + (item.ImagePath ?? "unnamed.png");
+                    }
+                    <img id="brokerImage" class="card-img-top" src="@PhotoPath" asp-append-version="true" />
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Surname)
+                </td>
+
+
+                @if (User.IsInRole("broker") || User.IsInRole("admin"))
+                {
+                    <td>
+                        <a asp-action="Edit"  asp-route-id="@item.Id">Редагувати</a> |
+                        <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
+                        <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
+                    </td>
                 }
-                <img id="brokerImage" class="card-img-top" src="@PhotoPath" asp-append-version="true" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Surname)
-            </td>
-
-
-            @if (User.IsInRole("broker") || User.IsInRole("admin"))
-            {
-                <td>
-                    <a asp-action="Edit"  asp-route-id="@item.Id">Редагувати</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Деталі</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Видалити</a>
-                </td>
+                else
+                {
+                    <td>
+                        <a asp-action="Details"  asp-route-id="@item.Id">Деталі</a>
+                    </td>
+                }
+            </tr>
             }
-            else
-            {
-                <td>
-                    <a asp-action="Details"  asp-route-id="@item.Id">Деталі</a>
-                </td>
-            }
-        </tr>
-        }
-    </tbody>
+        </tbody>*@
 </table>
 <div class="container">
     <div id="chart2"></div>
 </div>
-
+<script src="~/js/dynamicSearch.js"></script>
 
 @section scripts{
 
