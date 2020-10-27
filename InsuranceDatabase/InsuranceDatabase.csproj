@@ -18,6 +18,7 @@
 
   <ItemGroup>
     <Content Remove="wwwroot\debug.log" />
+    <Content Remove="wwwroot\js\dynamicAutocomplete.js" />
   </ItemGroup>
 
   <ItemGroup>
